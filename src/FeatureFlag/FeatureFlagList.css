@@ -1,0 +1,75 @@
+.featureSummary .MuiAccordionSummary-content {
+  justify-content: space-between !important;
+  align-items: center;
+}
+
+.lowMargin {
+  margin: 2px 0 !important;
+}
+
+.nonExpandable .MuiFormControlLabel-labelPlacementStart {
+  margin-left: 0px !important;
+}
+
+.nonExpandable {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.childSwitches {
+  display: flex;
+  justify-content: space-between !important;
+  align-items: center;
+}
+
+.childSwitches .formControlWrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 250px;
+  align-items: center;
+}
+
+.formControlWrapper .selectBox {
+  font-size: 10px;
+  height: 30px;
+  margin-right: 12px;
+}
+
+.featureTitle {
+  text-transform: uppercase;
+}
+
+.switches {
+  display: flex;
+  justify-content: space-between !important;
+  align-items: center;
+  padding: 12px;
+}
+
+.sectionTitle {
+  color: #fff;
+}
+
+.featureGrid {
+  margin-bottom: 16px;
+}
+
+.groupWrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.flexWrap {
+  display: flex;
+  margin-right: 28px !important;
+}
+
+@media only screen and (max-width: 600px) {
+  .flexWrap {
+    margin-right: 0px !important;
+    display: block;
+  }
+  .divWrap {
+    width: 100%;
+  }
+}
