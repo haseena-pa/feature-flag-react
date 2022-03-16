@@ -8,26 +8,32 @@ import MenuItem from "@mui/material/MenuItem";
 import { FeatureFlag } from "./models/featureFlag";
 import FormControlLabel from "@mui/material/FormControlLabel";
 
-function ExpandableFeature(props: any) {
-  const feature = props.subFeature;
+function ExpandableFeature({
+  subFeature,
+  mainGroupIndex,
+  mainFeatureIndex,
+  subFeatureIndex,
+  handleToggle,
+  handleChange,
+}) {
   return (
-    <Accordion key={props.subFeatureIndex}>
+    <Accordion key={subFeatureIndex}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
         id="panel1a-header"
         className="featureSummary"
       >
-        <span className="featureTitle">{feature.label}</span>
+        <span className="featureTitle">{subFeature.label}</span>
         <FormControlLabel
           control={
             <Switch
-              checked={feature.enabled}
+              checked={subFeature.enabled}
               onChange={(e) =>
-                props.handleToggle(
-                  props.mainGroupIndex,
-                  props.mainFeatureIndex,
-                  props.subFeatureIndex,
+                handleToggle(
+                  mainGroupIndex,
+                  mainFeatureIndex,
+                  subFeatureIndex,
                   null,
                   e
                 )
@@ -35,7 +41,7 @@ function ExpandableFeature(props: any) {
               onClick={(e) => {
                 e.stopPropagation();
               }}
-              name={feature.name}
+              name={subFeature.name}
             />
           }
           label=""
@@ -43,8 +49,8 @@ function ExpandableFeature(props: any) {
       </AccordionSummary>
       <AccordionDetails>
         <div>
-          {feature.children &&
-            feature.children.map((child: FeatureFlag, cdx: number) => (
+          {subFeature.children &&
+            subFeature.children.map((child: FeatureFlag, cdx: number) => (
               <div className="childSwitches" key={cdx}>
                 <div className="formControlWrapper">
                   <span>{child.label}</span>
@@ -55,10 +61,10 @@ function ExpandableFeature(props: any) {
                       value={child.value}
                       label="No of users"
                       onChange={(e) =>
-                        props.handleChange(
-                          props.mainGroupIndex,
-                          props.mainFeatureIndex,
-                          props.subFeatureIndex,
+                        handleChange(
+                          mainGroupIndex,
+                          mainFeatureIndex,
+                          subFeatureIndex,
                           cdx,
                           e
                         )
@@ -77,10 +83,10 @@ function ExpandableFeature(props: any) {
                       checked={child.enabled}
                       name={child.name}
                       onChange={(e) =>
-                        props.handleToggle(
-                          props.mainGroupIndex,
-                          props.mainFeatureIndex,
-                          props.subFeatureIndex,
+                        handleToggle(
+                          mainGroupIndex,
+                          mainFeatureIndex,
+                          subFeatureIndex,
                           cdx,
                           e
                         )
