@@ -8,43 +8,24 @@ import MenuItem from "@mui/material/MenuItem";
 import { FeatureFlag } from "./models/featureFlag";
 import FormControlLabel from "@mui/material/FormControlLabel";
 
-function ExpandableFeature({
-  subFeature,
-  mainGroupIndex,
-  mainFeatureIndex,
-  subFeatureIndex,
-  handleToggle,
-  handleChange,
-}) {
+function ExpandableFeature({ subFeature, handleToggle, handleChange }) {
   return (
-    <Accordion key={subFeatureIndex}>
+    <Accordion>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
-        aria-controls="panel1a-content"
-        id="panel1a-header"
         className="featureSummary"
       >
         <span className="featureTitle">{subFeature.label}</span>
         <FormControlLabel
+          label=""
           control={
             <Switch
               checked={subFeature.enabled}
-              onChange={(e) =>
-                handleToggle(
-                  mainGroupIndex,
-                  mainFeatureIndex,
-                  subFeatureIndex,
-                  null,
-                  e
-                )
-              }
-              onClick={(e) => {
-                e.stopPropagation();
-              }}
+              onChange={(e) => handleToggle(subFeature, null, e)}
+              onClick={(e) => e.stopPropagation()}
               name={subFeature.name}
             />
           }
-          label=""
         />
       </AccordionSummary>
       <AccordionDetails>
@@ -57,19 +38,9 @@ function ExpandableFeature({
                     <span>{child.label}</span>
                     {child.value && (
                       <Select
-                        labelId="demo-simple-select-helper-label"
-                        id="demo-simple-select-helper"
                         value={child.value}
                         label="No of users"
-                        onChange={(e) =>
-                          handleChange(
-                            mainGroupIndex,
-                            mainFeatureIndex,
-                            subFeatureIndex,
-                            childrenIndex,
-                            e
-                          )
-                        }
+                        onChange={(e) => handleChange(child, e)}
                         className="selectBox"
                       >
                         <MenuItem value={10}>10</MenuItem>
@@ -79,22 +50,16 @@ function ExpandableFeature({
                     )}
                   </div>
                   <FormControlLabel
+                    label=""
                     control={
                       <Switch
                         checked={child.enabled}
                         name={child.name}
                         onChange={(e) =>
-                          handleToggle(
-                            mainGroupIndex,
-                            mainFeatureIndex,
-                            subFeatureIndex,
-                            childrenIndex,
-                            e
-                          )
+                          handleToggle(subFeature, childrenIndex, e)
                         }
                       />
                     }
-                    label=""
                   />
                 </div>
               )

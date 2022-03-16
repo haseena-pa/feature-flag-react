@@ -30,73 +30,27 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 function FeatureFlagList() {
-  const handleChange = (
-    mainGroupIndex: number,
-    mainFeatureIndex: number,
-    subFeatureIndex: number,
-    childrenIndex: number,
-    event: any
-  ) => {
-    if (
-      childrenIndex !== null &&
-      featureGroup[mainGroupIndex].groups[mainFeatureIndex].items[
-        subFeatureIndex
-      ].children &&
-      featureGroup[mainGroupIndex].groups[mainFeatureIndex].items[
-        subFeatureIndex
-      ].children[childrenIndex]
-    ) {
-      featureGroup[mainGroupIndex].groups[mainFeatureIndex].items[
-        subFeatureIndex
-      ].children[childrenIndex].value = event.target.value;
-    }
-    setfeatureGroup([...featureGroups]);
-  };
   const [featureGroup, setfeatureGroup] = React.useState(featureGroups);
 
-  const handleSwitch = (
-    mainGroupIndex: number,
-    mainFeatureIndex: number,
-    subFeatureIndex: number,
-    childrenIndex: number,
-    event: any
-  ) => {
-    if (
-      childrenIndex !== null &&
-      featureGroup[mainGroupIndex].groups[mainFeatureIndex].items[
-        subFeatureIndex
-      ].children &&
-      featureGroup[mainGroupIndex].groups[mainFeatureIndex].items[
-        subFeatureIndex
-      ].children[childrenIndex]
-    ) {
-      featureGroup[mainGroupIndex].groups[mainFeatureIndex].items[
-        subFeatureIndex
-      ].children[childrenIndex].enabled = event.target.checked;
-      featureGroup[mainGroupIndex].groups[mainFeatureIndex].items[
-        subFeatureIndex
-      ].enabled =
-        event.target.checked &&
-        !featureGroup[mainGroupIndex].groups[mainFeatureIndex].items[
-          subFeatureIndex
-        ].enabled
-          ? true
-          : featureGroup[mainGroupIndex].groups[mainFeatureIndex].items[
-              subFeatureIndex
-            ].enabled;
+  // Handle the Select Box Change
+  const handleChange = (child, event: any) => {
+    child.value = event.target.value;
+    setfeatureGroup([...featureGroups]);
+  };
+
+  //Handle the Feature Toggle
+  const handleSwitch = (subFeature: any, childrenIndex, event: any) => {
+    if (childrenIndex !== null) {
+      subFeature.children[childrenIndex].enabled = event.target.checked;
+      // if any child enable, parent also enables
+      if (event.target.checked && !subFeature.enabled) {
+        subFeature.enabled = true;
+      }
     } else {
-      featureGroup[mainGroupIndex].groups[mainFeatureIndex].items[
-        subFeatureIndex
-      ].enabled = event.target.checked;
-      if (
-        !event.target.checked &&
-        featureGroup[mainGroupIndex].groups[mainFeatureIndex].items[
-          subFeatureIndex
-        ].hasChildren
-      ) {
-        featureGroup[mainGroupIndex].groups[mainFeatureIndex].items[
-          subFeatureIndex
-        ].children.map((child) => (child.enabled = false));
+      subFeature.enabled = event.target.checked;
+      // if parent toggle disabled, children toggle disables
+      if (subFeature.hasChildren && !event.target.checked) {
+        subFeature.children.map((child) => (child.enabled = false));
       }
     }
 
@@ -140,9 +94,6 @@ function FeatureFlagList() {
                                   <ExpandableFeature
                                     {...{
                                       subFeature,
-                                      subFeatureIndex,
-                                      mainGroupIndex,
-                                      mainFeatureIndex,
                                     }}
                                     handleToggle={handleSwitch}
                                     handleChange={handleChange}
@@ -151,9 +102,6 @@ function FeatureFlagList() {
                                   <NonExpandableFeature
                                     {...{
                                       subFeature,
-                                      subFeatureIndex,
-                                      mainGroupIndex,
-                                      mainFeatureIndex,
                                     }}
                                     handleToggle={handleSwitch}
                                   />

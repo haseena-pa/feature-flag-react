@@ -3,34 +3,20 @@ import Switch from "@mui/material/Switch";
 import Accordion from "@mui/material/Accordion";
 import FormControlLabel from "@mui/material/FormControlLabel";
 
-function NonExpandableFeature({
-  subFeature,
-  mainGroupIndex,
-  mainFeatureIndex,
-  subFeatureIndex,
-  handleToggle,
-}) {
+function NonExpandableFeature({ subFeature, handleToggle }) {
   return (
     <Accordion>
       <div className="switches">
         <span className="featureTitle">{subFeature.label}</span>
         <FormControlLabel
+          label=""
           control={
             <Switch
               checked={subFeature.enabled}
-              onChange={(e) =>
-                handleToggle(
-                  mainGroupIndex,
-                  mainFeatureIndex,
-                  subFeatureIndex,
-                  null,
-                  e
-                )
-              }
+              onChange={(e) => handleToggle(subFeature, null, e)}
               name={subFeature.name}
             />
           }
-          label=""
         />
       </div>
     </Accordion>
