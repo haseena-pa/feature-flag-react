@@ -12,6 +12,7 @@ import {
 import ExpandableFeature from "./ExpandableFeature";
 import NonExpandableFeature from "./NonExpandableFeature";
 import "./FeatureFlagList.css";
+import React from "react";
 
 const darkTheme = createTheme({
   palette: {
@@ -29,6 +30,8 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 function FeatureFlagList() {
+  const [featureGroup, setfeatureGroup] = React.useState(featureGroups);
+
   return (
     <ThemeProvider theme={darkTheme}>
       <Container>
@@ -61,9 +64,19 @@ function FeatureFlagList() {
                               key={subFeatureIndex}
                             >
                               {subFeature.hasChildren ? (
-                                <ExpandableFeature />
+                                <ExpandableFeature
+                                  feature={subFeature}
+                                  index={subFeatureIndex}
+                                  ldx={mainFeatureIndex}
+                                  gdx={mainFeatureIndex}
+                                />
                               ) : (
-                                <NonExpandableFeature />
+                                <NonExpandableFeature
+                                  feature={subFeature}
+                                  index={subFeatureIndex}
+                                  ldx={mainFeatureIndex}
+                                  gdx={mainFeatureIndex}
+                                />
                               )}
                             </FormGroup>
                           )
