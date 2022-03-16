@@ -50,53 +50,55 @@ function ExpandableFeature({
       <AccordionDetails>
         <div>
           {subFeature.children &&
-            subFeature.children.map((child: FeatureFlag, cdx: number) => (
-              <div className="childSwitches" key={cdx}>
-                <div className="formControlWrapper">
-                  <span>{child.label}</span>
-                  {child.value && (
-                    <Select
-                      labelId="demo-simple-select-helper-label"
-                      id="demo-simple-select-helper"
-                      value={child.value}
-                      label="No of users"
-                      onChange={(e) =>
-                        handleChange(
-                          mainGroupIndex,
-                          mainFeatureIndex,
-                          subFeatureIndex,
-                          cdx,
-                          e
-                        )
-                      }
-                      className="selectBox"
-                    >
-                      <MenuItem value={10}>10</MenuItem>
-                      <MenuItem value={20}>20</MenuItem>
-                      <MenuItem value={30}>30</MenuItem>
-                    </Select>
-                  )}
+            subFeature.children.map(
+              (child: FeatureFlag, childrenIndex: number) => (
+                <div className="childSwitches" key={childrenIndex}>
+                  <div className="formControlWrapper">
+                    <span>{child.label}</span>
+                    {child.value && (
+                      <Select
+                        labelId="demo-simple-select-helper-label"
+                        id="demo-simple-select-helper"
+                        value={child.value}
+                        label="No of users"
+                        onChange={(e) =>
+                          handleChange(
+                            mainGroupIndex,
+                            mainFeatureIndex,
+                            subFeatureIndex,
+                            childrenIndex,
+                            e
+                          )
+                        }
+                        className="selectBox"
+                      >
+                        <MenuItem value={10}>10</MenuItem>
+                        <MenuItem value={20}>20</MenuItem>
+                        <MenuItem value={30}>30</MenuItem>
+                      </Select>
+                    )}
+                  </div>
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        checked={child.enabled}
+                        name={child.name}
+                        onChange={(e) =>
+                          handleToggle(
+                            mainGroupIndex,
+                            mainFeatureIndex,
+                            subFeatureIndex,
+                            childrenIndex,
+                            e
+                          )
+                        }
+                      />
+                    }
+                    label=""
+                  />
                 </div>
-                <FormControlLabel
-                  control={
-                    <Switch
-                      checked={child.enabled}
-                      name={child.name}
-                      onChange={(e) =>
-                        handleToggle(
-                          mainGroupIndex,
-                          mainFeatureIndex,
-                          subFeatureIndex,
-                          cdx,
-                          e
-                        )
-                      }
-                    />
-                  }
-                  label=""
-                />
-              </div>
-            ))}
+              )
+            )}
         </div>
       </AccordionDetails>
     </Accordion>

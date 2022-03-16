@@ -31,52 +31,72 @@ const Item = styled(Paper)(({ theme }) => ({
 
 function FeatureFlagList() {
   const handleChange = (
-    ldx: number,
-    gdx: number,
-    fdx: number,
-    cdx: number,
+    mainGroupIndex: number,
+    mainFeatureIndex: number,
+    subFeatureIndex: number,
+    childrenIndex: number,
     event: any
   ) => {
     if (
-      cdx !== null &&
-      featureGroup[ldx].groups[gdx].items[fdx].children &&
-      featureGroup[ldx].groups[gdx].items[fdx].children[cdx]
+      childrenIndex !== null &&
+      featureGroup[mainGroupIndex].groups[mainFeatureIndex].items[
+        subFeatureIndex
+      ].children &&
+      featureGroup[mainGroupIndex].groups[mainFeatureIndex].items[
+        subFeatureIndex
+      ].children[childrenIndex]
     ) {
-      featureGroup[ldx].groups[gdx].items[fdx].children[cdx].value =
-        event.target.value;
+      featureGroup[mainGroupIndex].groups[mainFeatureIndex].items[
+        subFeatureIndex
+      ].children[childrenIndex].value = event.target.value;
     }
     setfeatureGroup([...featureGroups]);
   };
   const [featureGroup, setfeatureGroup] = React.useState(featureGroups);
 
   const handleSwitch = (
-    ldx: number,
-    gdx: number,
-    fdx: number,
-    cdx: number,
+    mainGroupIndex: number,
+    mainFeatureIndex: number,
+    subFeatureIndex: number,
+    childrenIndex: number,
     event: any
   ) => {
     if (
-      cdx !== null &&
-      featureGroup[ldx].groups[gdx].items[fdx].children &&
-      featureGroup[ldx].groups[gdx].items[fdx].children[cdx]
+      childrenIndex !== null &&
+      featureGroup[mainGroupIndex].groups[mainFeatureIndex].items[
+        subFeatureIndex
+      ].children &&
+      featureGroup[mainGroupIndex].groups[mainFeatureIndex].items[
+        subFeatureIndex
+      ].children[childrenIndex]
     ) {
-      featureGroup[ldx].groups[gdx].items[fdx].children[cdx].enabled =
-        event.target.checked;
-      featureGroup[ldx].groups[gdx].items[fdx].enabled =
+      featureGroup[mainGroupIndex].groups[mainFeatureIndex].items[
+        subFeatureIndex
+      ].children[childrenIndex].enabled = event.target.checked;
+      featureGroup[mainGroupIndex].groups[mainFeatureIndex].items[
+        subFeatureIndex
+      ].enabled =
         event.target.checked &&
-        !featureGroup[ldx].groups[gdx].items[fdx].enabled
+        !featureGroup[mainGroupIndex].groups[mainFeatureIndex].items[
+          subFeatureIndex
+        ].enabled
           ? true
-          : featureGroup[ldx].groups[gdx].items[fdx].enabled;
+          : featureGroup[mainGroupIndex].groups[mainFeatureIndex].items[
+              subFeatureIndex
+            ].enabled;
     } else {
-      featureGroup[ldx].groups[gdx].items[fdx].enabled = event.target.checked;
+      featureGroup[mainGroupIndex].groups[mainFeatureIndex].items[
+        subFeatureIndex
+      ].enabled = event.target.checked;
       if (
         !event.target.checked &&
-        featureGroup[ldx].groups[gdx].items[fdx].hasChildren
+        featureGroup[mainGroupIndex].groups[mainFeatureIndex].items[
+          subFeatureIndex
+        ].hasChildren
       ) {
-        featureGroup[ldx].groups[gdx].items[fdx].children.map(
-          (child) => (child.enabled = false)
-        );
+        featureGroup[mainGroupIndex].groups[mainFeatureIndex].items[
+          subFeatureIndex
+        ].children.map((child) => (child.enabled = false));
       }
     }
 
