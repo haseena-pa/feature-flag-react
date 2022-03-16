@@ -118,19 +118,23 @@ function FeatureFlagList() {
                               >
                                 {subFeature.hasChildren ? (
                                   <ExpandableFeature
-                                    feature={subFeature}
-                                    index={subFeatureIndex}
-                                    ldx={mainGroupIndex}
-                                    gdx={mainFeatureIndex}
+                                    {...{
+                                      subFeature,
+                                      subFeatureIndex,
+                                      mainGroupIndex,
+                                      mainFeatureIndex,
+                                    }}
                                     handleToggle={handleSwitch}
                                     handleChange={handleChange}
                                   />
                                 ) : (
                                   <NonExpandableFeature
-                                    feature={subFeature}
-                                    index={subFeatureIndex}
-                                    ldx={mainGroupIndex}
-                                    gdx={mainFeatureIndex}
+                                    {...{
+                                      subFeature,
+                                      subFeatureIndex,
+                                      mainGroupIndex,
+                                      mainFeatureIndex,
+                                    }}
                                     handleToggle={handleSwitch}
                                   />
                                 )}

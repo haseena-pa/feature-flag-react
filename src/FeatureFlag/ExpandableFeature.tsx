@@ -9,9 +9,9 @@ import { FeatureFlag } from "./models/featureFlag";
 import FormControlLabel from "@mui/material/FormControlLabel";
 
 function ExpandableFeature(props: any) {
-  const feature = props.feature;
+  const feature = props.subFeature;
   return (
-    <Accordion key={props.index}>
+    <Accordion key={props.subFeatureIndex}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
@@ -24,7 +24,13 @@ function ExpandableFeature(props: any) {
             <Switch
               checked={feature.enabled}
               onChange={(e) =>
-                props.handleToggle(props.ldx, props.gdx, props.index, null, e)
+                props.handleToggle(
+                  props.mainGroupIndex,
+                  props.mainFeatureIndex,
+                  props.subFeatureIndex,
+                  null,
+                  e
+                )
               }
               onClick={(e) => {
                 e.stopPropagation();
@@ -50,9 +56,9 @@ function ExpandableFeature(props: any) {
                       label="No of users"
                       onChange={(e) =>
                         props.handleChange(
-                          props.ldx,
-                          props.gdx,
-                          props.index,
+                          props.mainGroupIndex,
+                          props.mainFeatureIndex,
+                          props.subFeatureIndex,
                           cdx,
                           e
                         )
@@ -72,9 +78,9 @@ function ExpandableFeature(props: any) {
                       name={child.name}
                       onChange={(e) =>
                         props.handleToggle(
-                          props.ldx,
-                          props.gdx,
-                          props.index,
+                          props.mainGroupIndex,
+                          props.mainFeatureIndex,
+                          props.subFeatureIndex,
                           cdx,
                           e
                         )

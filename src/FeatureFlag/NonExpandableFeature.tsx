@@ -4,7 +4,7 @@ import Accordion from "@mui/material/Accordion";
 import FormControlLabel from "@mui/material/FormControlLabel";
 
 function NonExpandableFeature(props: any) {
-  const feature = props.feature;
+  const feature = props.subFeature;
   return (
     <Accordion>
       <div className="switches">
@@ -14,7 +14,13 @@ function NonExpandableFeature(props: any) {
             <Switch
               checked={feature.enabled}
               onChange={(e) =>
-                props.handleToggle(props.ldx, props.gdx, props.index, null, e)
+                props.handleToggle(
+                  props.mainGroupIndex,
+                  props.mainFeatureIndex,
+                  props.subFeatureIndex,
+                  null,
+                  e
+                )
               }
               name={feature.name}
             />
