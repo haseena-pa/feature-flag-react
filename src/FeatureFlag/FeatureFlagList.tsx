@@ -120,8 +120,8 @@ function FeatureFlagList() {
                                   <ExpandableFeature
                                     feature={subFeature}
                                     index={subFeatureIndex}
-                                    ldx={mainFeatureIndex}
-                                    gdx={mainGroupIndex}
+                                    ldx={mainGroupIndex}
+                                    gdx={mainFeatureIndex}
                                     handleToggle={handleSwitch}
                                     handleChange={handleChange}
                                   />
